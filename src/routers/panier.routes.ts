@@ -21,4 +21,4 @@ router.post("/create-panier/", panier.createPanier);
 
 router.put("/update-panier/", panier.updatePanier);
 
-export { router as userRoute };
+export { router as panierRoute };

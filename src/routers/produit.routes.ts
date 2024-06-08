@@ -21,4 +21,4 @@ router.post("/create-produit/", produit.createProduit);
 //Put
 
 router.put("/update-produit/", produit.updateProduit);
-export { router as userRoute };
+export { router as produitRouter };
