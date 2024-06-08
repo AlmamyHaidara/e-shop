@@ -20,8 +20,7 @@ export default class ProduitController {
             nom: nom,
           },
         });
-        console.log(produit);
-        if (produit) {
+        if (produit.length > 0) {
           res
             .status(200)
             .json({ status: false, msg: "cet produit existe deja" });
