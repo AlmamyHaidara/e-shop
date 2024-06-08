@@ -1,0 +1,250 @@
+{
+	"info": {
+		"_postman_id": "8a3d231d-ded2-4dee-88eb-8014d4c44382",
+		"name": "e-shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32105626",
+		"_collection_link": "https://samina-groupe.postman.co/workspace/Team-Workspace~30f4a3e6-0e25-487e-894d-b3eaee8ef5ad/collection/32105626-8a3d231d-ded2-4dee-88eb-8014d4c44382?action=share&source=collection_link&creator=32105626"
+	},
+	"item": [
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "create-user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"\",\n    \"email\":\"exemple@test.com\",\n    \"password\":\"123\",\n     \"avatar\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/create-user/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"create-user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"\",\n    \"email\":\"exemple@test.com\",\n     \"avatar\":\"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/update-user",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"update-user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "panier",
+			"item": [
+				{
+					"name": "create-panier",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"pid\": 0,\n    \"uid\": 0,\n    \"qte\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/create-panier",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"create-panier"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-panier",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/update-panier/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"update-panier",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-panier/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/delete-paniers/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"delete-paniers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-paniers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/get-paniers/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"get-paniers",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "produit",
+			"item": [
+				{
+					"name": "create-produit",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nom\": \"\",\n    \"categorie\": \"\",\n    \"prix\": \"\",\n    \"photo\": \"\",\n    \"description\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{local}}/create-produit",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"create-produit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-produit",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/update-panier/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"update-panier",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-produit/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/delete-paniers/1",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"delete-paniers",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-produits",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local}}/get-paniers/",
+							"host": [
+								"{{local}}"
+							],
+							"path": [
+								"get-paniers",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/find-produit/:element",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
