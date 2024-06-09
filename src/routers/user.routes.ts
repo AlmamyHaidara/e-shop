@@ -1,14 +1,17 @@
 import express from "express";
 import UserController from "../controllers/UserController";
-
+import { verifyToken } from "../middelware/middleware";
 // Initialisation des import
 const router = express.Router();
 const user = new UserController();
 
-// End point Post
-
 // Post
 
-router.post("/create-user/", user.createUser);
-router.put("/update-user/", user.updateUser);
+router.post("/user-auth/register", user.register);
+router.post("/user-auth/login", user.login);
+router.post("/user-auth/logout", verifyToken, user.logout);
+
+// PUT
+router.put("/user-auth/edit", user.updateUser);
+
 export { router as userRoute };

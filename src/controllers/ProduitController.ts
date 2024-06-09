@@ -139,7 +139,7 @@ export default class ProduitController {
 
   getProduits: any = async (req: any, res: Response) => {
     try {
-      const produit = this.prisma.produit.findMany({
+      const produit = await this.prisma.produit.findMany({
         select: {
           id: true,
           nom: true,
