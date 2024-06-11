@@ -14,32 +14,43 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  avatar    String?
-  password  String
-  createdAt DateTime @default(now())
-  Panier    Panier[]
+  id             Int              @id @default(autoincrement())
+  email          String           @unique
+  name           String?
+  avatar         String?
+  password       String
+  createdAt      DateTime         @default(now())
+  Commandes      Commande[]
 }
 
 model Produit {
-  id          Int      @id @default(autoincrement())
-  nom         String
-  categorie   String?
-  prix        String
-  photo       String
-  description String?
-  createdAt   DateTime @default(now())
-  Panier      Panier[]
+  id             Int              @id @default(autoincrement())
+  nom            String
+  categorie      String?
+  prix           String
+  photo          String
+  description    String?
+  createdAt      DateTime         @default(now())
+  DetailsCommandes DetailsCommande[]
 }
 
-model Panier {
-  id        Int      @id @default(autoincrement())
-  pid       Int
-  uid       Int
-  qte       Int
-  produit   Produit  @relation(fields: [pid], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  user      User     @relation(fields: [uid], references: [id], onUpdate: Cascade, onDelete: Cascade)
-  createdAt DateTime @default(now())
+model Commande {
+  id             Int              @id @default(autoincrement())
+  uid            Int
+  total          String
+  status         String
+  createdAt      DateTime         @default(now())
+  user           User             @relation(fields: [uid], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  DetailsCommandes DetailsCommande[]
+}
+
+model DetailsCommande {
+  id             Int              @id @default(autoincrement())
+  commandeId     Int
+  produitId      Int
+  quantite       Int
+  prix           String
+  createdAt      DateTime         @default(now())
+  commande       Commande         @relation(fields: [commandeId], references: [id], onUpdate: Cascade, onDelete: Cascade)
+  produit        Produit          @relation(fields: [produitId], references: [id], onUpdate: Cascade, onDelete: Cascade)
 }

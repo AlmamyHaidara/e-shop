@@ -1,25 +1,25 @@
 import express from "express";
 import ProduitController from "../controllers/ProduitController";
-import { verifyToken } from "../middelware/middleware";
+import { verifyToken } from "../middleware/middleware";
 
-// Initialisation des import
 const router = express.Router();
 const produit = new ProduitController();
 
-// Get
+// Routes pour les produits
 
-router.get("/find-produit/:element", verifyToken, produit.findProduit);
-router.get("/get-produits/", verifyToken, produit.getProduits);
+// Rechercher un produit par un critère spécifique (par exemple, nom, catégorie)
+router.get("/produits/:element", verifyToken, produit.findProduit);
 
-// Delete
+// Récupérer tous les produits
+router.get("/produits", verifyToken, produit.getProduits);
 
-router.get("/delete-produits/:id", verifyToken, produit.deleteProduct);
+// Créer un nouveau produit
+router.post("/produits", verifyToken, produit.createProduit);
 
-// Post
+// Mettre à jour un produit existant
+router.put("/produits/:id", verifyToken, produit.updateProduit);
 
-router.post("/create-produit/", verifyToken, produit.createProduit);
+// Supprimer un produit
+router.delete("/produits/:id", verifyToken, produit.deleteProduct);
 
-//Put
-
-router.put("/update-produit/", verifyToken, produit.updateProduit);
 export { router as produitRouter };

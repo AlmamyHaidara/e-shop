@@ -5,14 +5,12 @@ export default class ProduitController {
   prisma = new PrismaClient();
 
   createProduit: any = async (req: any, res: Response) => {
-    const data = await req.body;
+    const data = req.body;
     /**
-     * Checks if all properties of the request body are empty
+     * Vérifie si toutes les propriétés du corps de la requête ne sont pas vides
      * @type {boolean}
      */
-    if (Object?.values(data).every((value) => !value)) {
-      res.status(404).json({ status: false, message: "Aucune donner reçue" });
-    } else {
+    if (Object.values(data).some((value) => !!value)) {
       try {
         const { nom, categorie, prix, photo, description } = data;
         const produit = await this.prisma.produit.findMany({
@@ -23,9 +21,9 @@ export default class ProduitController {
         if (produit.length > 0) {
           res
             .status(200)
-            .json({ status: false, msg: "cet produit existe deja" });
+            .json({ status: false, msg: "Ce produit existe déjà" });
         } else {
-          const produit = await this.prisma.produit.create({
+          const newProduit = await this.prisma.produit.create({
             data: {
               nom,
               categorie,
@@ -37,27 +35,27 @@ export default class ProduitController {
 
           res.status(200).json({
             status: true,
-            msg: "produit creer avec succes",
+            msg: "Produit créé avec succès",
           });
         }
       } catch (error) {
         console.error("Erreur lors de la requête à la base de données:", error);
         res
           .status(500)
-          .json({ status: false, message: "Internal Server Error" });
+          .json({ status: false, message: "Erreur interne du serveur" });
       }
+    } else {
+      res.status(404).json({ status: false, message: "Aucune donnée reçue" });
     }
   };
 
   updateProduit: any = async (req: any, res: Response) => {
-    const data = await req.body;
+    const data = req.body;
     /**
-     * Checks if all properties of the request body are empty
+     * Vérifie si toutes les propriétés du corps de la requête ne sont pas vides
      * @type {boolean}
      */
-    if (Object?.values(data).every((value) => !value)) {
-      res.status(404).json({ status: false, message: "Aucune donner reçue" });
-    } else {
+    if (Object.values(data).some((value) => !!value)) {
       try {
         const { id, nom, categorie, prix, photo, description } = data;
         const produit = await this.prisma.produit.findMany({
@@ -65,8 +63,8 @@ export default class ProduitController {
             nom: nom,
           },
         });
-        if (produit) {
-          const produit = await this.prisma.produit.update({
+        if (produit.length > 0) {
+          const updatedProduit = await this.prisma.produit.update({
             where: {
               id: id,
             },
@@ -81,31 +79,31 @@ export default class ProduitController {
 
           res.status(200).json({
             status: true,
-            msg: "Produit modifier avec succes",
+            msg: "Produit modifié avec succès",
           });
         } else {
           res
             .status(404)
-            .json({ status: false, msg: "Cet produit n'existe pas" });
+            .json({ status: false, msg: "Ce produit n'existe pas" });
         }
       } catch (error) {
         console.error("Erreur lors de la requête à la base de données:", error);
         res
           .status(500)
-          .json({ status: false, message: "Internal Server Error" });
+          .json({ status: false, message: "Erreur interne du serveur" });
       }
+    } else {
+      res.status(404).json({ status: false, message: "Aucune donnée reçue" });
     }
   };
 
   findProduit: any = async (req: any, res: Response) => {
-    const data = await req.param;
+    const data = req.param;
     /**
-     * Checks if all properties of the request body are empty
+     * Vérifie si toutes les propriétés du corps de la requête ne sont pas vides
      * @type {boolean}
      */
-    if (Object?.values(data).every((value) => !value)) {
-      res.status(404).json({ status: false, message: "Aucune donner reçue" });
-    } else {
+    if (Object.values(data).some((value) => !!value)) {
       try {
         const { element } = data;
         const produit = this.prisma.produit.findFirst({
@@ -132,14 +130,16 @@ export default class ProduitController {
         console.error("Erreur lors de la requête à la base de données:", error);
         res
           .status(500)
-          .json({ status: false, message: "Internal Server Error" });
+          .json({ status: false, message: "Erreur interne du serveur" });
       }
+    } else {
+      res.status(404).json({ status: false, message: "Aucune donnée reçue" });
     }
   };
 
   getProduits: any = async (req: any, res: Response) => {
     try {
-      const produit = await this.prisma.produit.findMany({
+      const produits = await this.prisma.produit.findMany({
         select: {
           id: true,
           nom: true,
@@ -152,23 +152,21 @@ export default class ProduitController {
 
       res.status(200).json({
         status: true,
-        data: produit,
+        data: produits,
       });
     } catch (error) {
       console.error("Erreur lors de la requête à la base de données:", error);
-      res.status(500).json({ status: false, message: "Internal Server Error" });
+      res.status(500).json({ status: false, message: "Erreur interne du serveur" });
     }
   };
 
   deleteProduct: any = async (req: any, res: Response) => {
-    const data = await req.param;
+    const data = req.param;
     /**
-     * Checks if all properties of the request body are empty
+     * Vérifie si toutes les propriétés du corps de la requête ne sont pas vides
      * @type {boolean}
      */
-    if (Object?.values(data).every((value) => !value)) {
-      res.status(404).json({ status: false, message: "Aucune donner reçue" });
-    } else {
+    if (Object.values(data).some((value) => !!value)) {
       const { id } = data;
       this.prisma.produit.delete({
         where: {
@@ -178,7 +176,9 @@ export default class ProduitController {
 
       res
         .status(200)
-        .json({ status: true, msg: "Produit suprimer avec succes" });
+        .json({ status: true, msg: "Produit supprimé avec succès" });
+    } else {
+      res.status(404).json({ status: false, message: "Aucune donnée reçue" });
     }
   };
 }

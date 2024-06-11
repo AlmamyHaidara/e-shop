@@ -1,6 +1,6 @@
 import express from "express";
 import UserController from "../controllers/UserController";
-import { verifyToken } from "../middelware/middleware";
+import { verifyToken } from "../middleware/middleware";
 // Initialisation des import
 const router = express.Router();
 const user = new UserController();
